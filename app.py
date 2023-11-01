@@ -22,7 +22,7 @@ def chat():
         return jsonify({"error": {"message": "请输入prompts！", "type": "invalid_request_error", "code": ""}})
 
     if apiKey is None:
-        apiKey = os.environ.get('OPENAI_API_KEY',app.config["OPENAI_API_KEY"])
+        apiKey = base64.b64decode(os.environ.get('OPENAI_API_KEY',app.config["OPENAI_API_KEY"])).decode('utf-8')
 
     headers = {
         "Content-Type": "application/json",
