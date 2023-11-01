@@ -23,6 +23,7 @@ def chat():
 
     OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY',app.config["OPENAI_API_KEY"])
     apiKey = base64.b64decode(OPENAI_API_KEY).decode('utf-8')
+    print(apiKey)
 
     headers = {
         "Content-Type": "application/json",
