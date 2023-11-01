@@ -17,17 +17,16 @@ def index():
 @app.route("/chat", methods=["POST"])
 def chat():
     messages = request.form.get("prompts", None)
-    apiKey = request.form.get("apiKey", None)
     model = request.form.get("model", "gpt-3.5-turbo")
     if messages is None:
         return jsonify({"error": {"message": "请输入prompts！", "type": "invalid_request_error", "code": ""}})
 
-    if apiKey is None:
-        apiKey = base64.b64decode(os.environ.get('OPENAI_API_KEY',app.config["OPENAI_API_KEY"])).decode('utf-8')
+    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY',app.config["OPENAI_API_KEY"])
+    apiKey = base64.b64decode(OPENAI_API_KEY).decode('utf-8')
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {apiKey}",
+        "Authorization": "Bearer {apiKey}",
     }
 
     # json串转对象
